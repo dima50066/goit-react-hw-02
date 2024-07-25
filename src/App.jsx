@@ -6,11 +6,20 @@ import Options from "./components/Options";
 import Notifications from "./components/Notifications";
 
 function App() {
-  const [feedback, setFeedback] = useState({
-    good: 0,
-    neutral: 0,
-    bad: 0,
+  const [feedback, setFeedback] = useState(() => {
+    const savedFeedback = localStorage.getItem("feedback");
+    return savedFeedback
+      ? JSON.parse(savedFeedback)
+      : {
+          good: 0,
+          neutral: 0,
+          bad: 0,
+        };
   });
+
+  useEffect(() => {
+    localStorage.setItem("feedback", JSON.stringify(feedback));
+  }, [feedback]);
 
   const updateFeedback = (feedbackType) => {
     setFeedback({
@@ -29,6 +38,10 @@ function App() {
     });
   };
 
+  const positivePercentage = () => {
+    return Math.round((feedback.good / totalFeedback) * 100);
+  };
+
   return (
     <>
       <Descriptions />
@@ -38,7 +51,11 @@ function App() {
         totalFeedback={totalFeedback}
       />
       {totalFeedback > 0 ? (
-        <Feedback feedback={feedback} totalFeedback={totalFeedback} />
+        <Feedback
+          feedback={feedback}
+          totalFeedback={totalFeedback}
+          positivePercentage={positivePercentage}
+        />
       ) : (
         <Notifications />
       )}
