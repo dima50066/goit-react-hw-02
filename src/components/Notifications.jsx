@@ -1,7 +1,7 @@
 const Notifications = () => {
   return (
     <div>
-      <p>Notifications</p>
+      <p>No feedback yet</p>
     </div>
   );
 };
