@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import Feedback from "./components/Feedback";
 import "./App.css";
-import Descriptions from "./components/Descriptions";
+import Description from "./components/Description";
 import Options from "./components/Options";
-import Notifications from "./components/Notifications";
+import Notification from "./components/Notification";
 
 function App() {
   const [feedback, setFeedback] = useState(() => {
@@ -44,7 +44,7 @@ function App() {
 
   return (
     <>
-      <Descriptions />
+      <Description />
       <Options
         updateFeedback={updateFeedback}
         resetFeedback={resetFeedback}
@@ -57,7 +57,7 @@ function App() {
           positivePercentage={positivePercentage}
         />
       ) : (
-        <Notifications />
+        <Notification />
       )}
     </>
   );
